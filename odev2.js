@@ -12,7 +12,6 @@
 //İpucu 1: Array.prototype.groupByCustom =  dedikten sonra metodunuzu yazabilirsiniz
 
 //örnek array
-
 const array = [
     {
         "name": "Marge Simpson",
@@ -240,20 +239,16 @@ const array = [
     },
 ]
 
-//örnek çıktı array.groupByCustom(item=>item.gender) için
-/*
-    {
-        "m": [... gender m olan içerik]
-        "f": [... gender f olan içerik]
-    }
- */
-
-    //örnek çıktı array.groupByCustom(item=>item.name[0]) için
-/*
-    {
-        "A": [... name baş harfi A olan içerik]
-        "B": [... name baş harfi B olan içerik]
-        "C": [... name baş harfi C olan içerik]
-        ... devamı
-    }
- */
+Array.prototype.groupBy= function(callback){
+    const result = {}
+    this.forEach(item=>{
+        const grup= callback(item)//f ya da m 
+        if(result[grup]){
+            result[grup].push(item)
+        }else{
+            result[grup]=[item]
+        }
+    })
+    return result
+}
+console.log(array.groupBy(item=>item.gender));
